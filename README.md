@@ -1,11 +1,11 @@
 # Certified Gluten-free Product Identifier
-Use OpenCV to scan the images associated with a product to determine if a certified gluten-free logo appears. Although this program can be used to query an image for any pattern, it is well-calibrated for identifying the updated certified gluten-free logo.
+Although I have wanted to build this application for a while, the main purpose of this project was to test out the functionality of Copilot. Although this program can be used to query an image for any pattern, it is well-calibrated for identifying the relatively recently updated certified gluten-free logo. The program uses OpenCV to scan the images associated with a product to determine if a certified gluten-free logo appears. Apologies in advance for the incomplete documentation as this was mostly just a tech demo. If you would like to use this for something, feel free to reach out and I'll be happy to help.
 ![gf](https://github.com/jonathanmann/certified-gluten-free-product-identifier/blob/main/gf-query.png?raw=true)
 
 ## Quickstart
-After installing OpenCV (cv2) and numpy, simply import the library and start using the function to scan images for the query image. For best results, apply the calibration as described in the following section.
+After installing OpenCV (cv2) and numpy, simply start using the "query_is_in_image" function to scan images for the query image. For best results (especially if you plan to use a different query image), apply the calibration as described in the following section.
 ```
-print(query_is_in_image('gf-query.png', 'examples/gf-example2.jpg', debug=True))
+print(query_is_in_image('gf-query.png', 'examples/gf-example2.jpg', threshold=0.3, debug=True))
 ```
 
 ## Calibration
@@ -39,13 +39,12 @@ Threshold: 0.45
 False negative: 0.0, True positive: 1.0
 True negative: 0.5, False positive: 0.5
 ```
-
-Set your threshold according to your preferred balance between false positives and false negatives.
+Set your threshold according to your preferred balance between false positives and false negatives. As you can see from the data above, the 0.3 threshold correcly identifies 90% of the instances where the logo appears in the image and has a false positive rate of less than 3%.
 
 ## Debugging
-To see what is going on "under the hood", you can set the "debug" option within the query_is_in_image function as shown below:
+To see what is going on "under the hood", you can set the "debug" option within the "query_is_in_image" function as shown below:
 ```
-query_is_in_image('gf-query.png', image, threshold=.25,debug=True)
+query_is_in_image('gf-query.png', image, threshold=.25, debug=True)
 ```
 This option will display a visualization of where (if at all the query image was detected).
 ![example1](https://github.com/jonathanmann/certified-gluten-free-product-identifier/blob/main/examples/gf-detect1.png?raw=true)
